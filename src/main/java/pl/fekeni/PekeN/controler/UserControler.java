@@ -1,6 +1,7 @@
 package pl.fekeni.PekeN.controler;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -63,6 +64,18 @@ public class UserControler {
         return "user-form/userHome";
     }
 
+    @GetMapping("/trening")
+    public String trening(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserEmail = authentication.getName();
+
+        User user = userService.getCurrentUser(currentUserEmail);
+
+        model.addAttribute("user", user);
+
+        return "user-form/userTrening";
+    }
+
     @GetMapping("/editUser/{id}")
     public String getEditUserForm(Model model, @PathVariable(name ="id")Long id)throws Exception{
         User userToEdit = userService.getUserById(id);
@@ -109,21 +122,19 @@ public class UserControler {
     }
 
 
-    @PutMapping("/updateStrength")
-    public String updateStrength() {
+    @PostMapping("/updateStat")
+    public String updateStat(@RequestParam(value = "statistic") String chosenStat) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserEmail = authentication.getName();
-
         User user = userService.getCurrentUser(currentUserEmail);
 
-        String stat = "strength";
+        String stat = chosenStat;
 
-            try {
-                System.out.println("siemaaa");
-                userService.addStat(user, stat);
-            } catch (Exception e) {
-                System.out.println("siema");
-            }
+        try {
+            userService.addStat(user, stat);
+        } catch (Exception e) {
+            System.out.println("siema");
+        }
 
         return "redirect:/home";
     }

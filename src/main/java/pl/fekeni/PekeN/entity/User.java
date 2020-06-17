@@ -40,7 +40,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
-  //  @NotNull(message="Password is compulsory")
+    @NotNull(message="Password is compulsory")
     @Length(min=5, message="Password should be at least 5 characters")
     @Column(name = "password")
     private String password;
@@ -259,9 +259,21 @@ public class User {
 
 
     public void incrementStat(String stat){
-        if(stat == "strength") {
+        if(stat.equals("strength")) {
             this.strength++;
+        } else if(stat.equals("dexterity")) {
+            this.dexterity++;
+        } else if(stat.equals("intelligence")) {
+            this.intelligence++;
+        } else if(stat.equals("health")) {
+            this.health++;
+        } else {
+            System.out.println("nie dodano");
         }
+    }
+
+    public void decreaseGold(int howMuch){
+        this.money-=howMuch;
     }
 
 

@@ -82,6 +82,7 @@ public class UserServiceImp implements UserService {
     public void addStat(User fromUser, String stat) throws Exception{
         User toUser = getUserById(fromUser.getId());
         toUser.incrementStat(stat);
+        toUser.decreaseGold(5);
 
         mapUser(fromUser, toUser);
         userRepository.save(toUser);
@@ -105,13 +106,13 @@ public class UserServiceImp implements UserService {
         to.setStrength(from.getStrength());
 
         to.setHealthPoints(from.getHealthPoints());
-        to.setHealth(from.getXp());
-        to.setCurrentHealth(from.getMoney());
+        to.setHealth(from.getHealth());
+        to.setCurrentHealth(from.getCurrentHealth());
 
-        to.setDexterity(from.getLvl());
-        to.setIntelligence(from.getXp());
-        to.setArmor(from.getMoney());
-        to.setDMG(from.getMoney());
+        to.setDexterity(from.getDexterity());
+        to.setIntelligence(from.getIntelligence());
+        to.setArmor(from.getArmor());
+        to.setDMG(from.getDMG());
     }
 
 }
