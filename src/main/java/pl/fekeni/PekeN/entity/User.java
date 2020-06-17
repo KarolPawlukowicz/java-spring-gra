@@ -25,7 +25,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "auth_user_id")
-    private int id;
+    private Long id;
 
     @NotNull(message="First name is compulsory")
     @Column(name = "first_name")
@@ -40,7 +40,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @NotNull(message="Password is compulsory")
+  //  @NotNull(message="Password is compulsory")
     @Length(min=5, message="Password should be at least 5 characters")
     @Column(name = "password")
     private String password;
@@ -200,11 +200,11 @@ public class User {
         this.lvl = lvl;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -254,6 +254,14 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+
+
+    public void incrementStat(String stat){
+        if(stat == "strength") {
+            this.strength++;
+        }
     }
 
 

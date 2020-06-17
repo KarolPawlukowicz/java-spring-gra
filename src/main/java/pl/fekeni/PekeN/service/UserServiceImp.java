@@ -24,6 +24,12 @@ public class UserServiceImp implements UserService {
     UserRepository userRepository;
 
     @Override
+    public Iterable<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+
+    @Override
     public void saveUser(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
         user.setStatus("VERIFIED");
@@ -52,6 +58,60 @@ public class UserServiceImp implements UserService {
             isUserAlreadyExists = true;
         }
         return isUserAlreadyExists;
+    }
+
+    @Override
+    public User getCurrentUser(String email){
+        User currentUser = userRepository.findByEmail(email);
+        return currentUser;
+    }
+
+    @Override
+    public User getUserById(Long id) throws Exception {
+        return userRepository.findById(id).orElseThrow(() -> new Exception("El usuario para editar no existe."));
+    }
+
+    @Override
+    public User updateUser(User fromUser) throws Exception {
+        User toUser = getUserById(fromUser.getId());
+        mapUser(fromUser, toUser);
+        return userRepository.save(toUser);
+    }
+
+    @Override
+    public void addStat(User fromUser, String stat) throws Exception{
+        User toUser = getUserById(fromUser.getId());
+        toUser.incrementStat(stat);
+
+        mapUser(fromUser, toUser);
+        userRepository.save(toUser);
+    }
+
+    /**
+     * Map everythin but the password.
+     * @param from
+     * @param to
+     */
+    protected void mapUser(User from,User to) {
+        to.setNickName(from.getNickName());
+        to.setName(from.getName());
+        to.setLastName(from.getLastName());
+        to.setEmail(from.getEmail());
+        to.setRoles(from.getRoles());
+
+        to.setLvl(from.getLvl());
+        to.setXp(from.getXp());
+        to.setMoney(from.getMoney());
+        to.setStrength(from.getStrength());
+
+        to.setHealthPoints(from.getHealthPoints());
+        to.setHealth(from.getXp());
+        to.setCurrentHealth(from.getMoney());
+
+        to.setDexterity(from.getLvl());
+        to.setIntelligence(from.getXp());
+        to.setArmor(from.getMoney());
+        to.setDMG(from.getMoney());
     }
 
 }

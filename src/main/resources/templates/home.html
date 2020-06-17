@@ -1,55 +1,28 @@
-<div th:with="disableFields=!${editMode} and ${#authorization.expression('hasRole(''ROLE_USER'')')}"
-     xmlns:th="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Store</title>
+</head>
+<body>
 
-    <form class="form" role="form" autocomplete="off"  th:object="${user}" th:action="${signup}?@{/signup}:(${editMode} ?@{/editUser} :@{/userForm})" method="post">
-        <!--Es necesario para poder pasar la validacion del Model-->
-        <input class="form-control" type=hidden th:field="${id}"  th:if="${editMode}">
-        <input class="form-control" type=hidden name="password" value="xxxx" th:if="${editMode}">
-        <!--quita el comentario si quieres mantener la validacion @NotBlank del campo confirmPassword
-             <input class="form-control" type=hidden name="confirmPassword" value="xxxx" th:if="${editMode}">
-         -->
+<form action="#" th:action="@{/ranking}">
+    <input type="submit" value="Ranking"/>
+</form>
 
-        <div class="form-group row">
-            <label class="col-lg-3 col-form-label form-control-label">First name</label>
-            <div class="col-lg-9">
-                <input class="form-control" type="text" th:field="${name}" th:disabled="${disableFields}">
-                <div class="alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</div>
+<form action="#" th:action="@{/userInfo}">
+    <input type="submit" value="Info o graczu"/>
+</form>
 
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-lg-3 col-form-label form-control-label">Last
-                name</label>
-            <div class="col-lg-9">
-                <input class="form-control" type="text" th:field="${lastName}" th:disabled="${disableFields}">
-                <div class="alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</div>
+<form action="#" th:action="@{/updateStrength}">
+    <input type="submit" value="udate sile"/>
+</form>
 
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-lg-3 col-form-label form-control-label">Email</label>
-            <div class="col-lg-9">
-                <input class="form-control" type="email" th:field="${email}" th:disabled="${disableFields}">
-                <div class="alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-lg-3 col-form-label form-control-label">Username</label>
-            <div class="col-lg-9">
-                <input class="form-control" type="text" th:field="${nickName}" th:disabled="${disableFields}">
-                <div class="alert-danger" th:if="${#fields.hasErrors('nickName')}" th:errors="*{username}">Name Error</div>
-            </div>
-        </div>
+<form action="updateButton" method="get" th:action="@{/updateStrength}">
+    <button type="submit" name="first">update str</button>
+</form>
 
-        <div class="form-group row" th:if="${editMode==null or editMode==false}">
-            <label class="col-lg-3 col-form-label form-control-label">Password</label>
-            <div class="col-lg-9">
-                <input class="form-control" type="password" th:field="${password}" th:disabled="${disableFields}">
-                <div class="alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</div>
-            </div>
-        </div>
 
-        <div class="alert alert-danger text-center" th:if="${formErrorMessage}" th:text="${formErrorMessage}">Error MEssage</div>
-        <div class="alert alert-success text-center d-none" id="formSuccess" th:if="${editMode}" >Success MEssage</div>
-    </form>
-</div>
+</body>
+</html>

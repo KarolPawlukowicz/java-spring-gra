@@ -15,9 +15,10 @@ public class WebMvcConfig implements WebMvcConfigurer{
         return bCryptPasswordEncoder;
     }
 
-  /*  @Override
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry){
-        registry.addResourceHandler("resources/**")
-                .addResourceLocations("/resources/");
-    }*/
+        registry.addResourceHandler("/img/**")
+                .addResourceLocations("file:resources/")
+                .setCachePeriod(0);
+    }
 }

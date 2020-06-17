@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,7 +51,8 @@ public class AuthenticationController {
     }
 
     @RequestMapping(value="/register", method=RequestMethod.POST)
-    public ModelAndView registerUser(@Valid User user, BindingResult bindingResult, ModelMap modelMap) {
+  //@RequestMapping(value="/userForm", method=RequestMethod.POST)
+    public ModelAndView registerUser(@Valid @ModelAttribute("userForm")User user, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
         // Check for the validations
         if(bindingResult.hasErrors()) {
@@ -67,6 +69,7 @@ public class AuthenticationController {
         }
         modelAndView.addObject("user", new User());
         modelAndView.setViewName("register");
+      //  modelAndView.setViewName("user-form/user-view");
         return modelAndView;
     }
 }
