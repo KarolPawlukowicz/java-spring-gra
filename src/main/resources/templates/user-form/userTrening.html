@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <br>   
+    <br>
 
 
     <label class="col-lg-3 col-form-label form-control-label">Strength: </label>
@@ -61,6 +61,19 @@
             <button type="submit" th:disabled="${user.money<=5}">+</button>
         </form>
     </div>
+
+
+    <label class="col-lg-3 col-form-label form-control-label">Wyzwanie: </label>
+    <div class="col-lg-9">
+
+        <form action="#" th:action="@{/arenaDetail}">
+            <input type="submit" th:disabled="${user.challange<0}" value="Zobacz wyzwanie"/>
+        </form>
+    </div>
+
+
+
+
 
 </body>
 </html>

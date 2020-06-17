@@ -23,4 +23,8 @@ public interface UserService {
     public void attack(User fromUser, String monsterType) throws Exception;
 
     public void updateHpAllUsers();
+
+    public void challangeUser(User userToChallange, Long idFromUser) throws Exception;
+
+    public int fight(User userMe, User userEnemy) throws Exception;
 }

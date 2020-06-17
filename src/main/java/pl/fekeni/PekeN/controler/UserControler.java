@@ -1,6 +1,7 @@
 package pl.fekeni.PekeN.controler;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -41,6 +42,34 @@ public class UserControler {
         model.addAttribute("userList", userService.getAllUsers());
       //  model.addAttribute("listTab", "active");
         return "ranking";
+    }
+
+    @GetMapping("/arena")
+    public String arena(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserEmail = authentication.getName();
+
+        User user = userService.getCurrentUser(currentUserEmail);
+
+        model.addAttribute("user", user);
+        model.addAttribute("userList", userService.getAllUsers());
+        //  model.addAttribute("listTab", "active");
+        return "arena";
+    }
+
+
+    @GetMapping("/arenaDetail")
+    public String arenaDetail(Model model) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserEmail = authentication.getName();
+
+        User user = userService.getCurrentUser(currentUserEmail);
+
+        User enemyUser = userService.getUserById(user.getChallange());
+
+        model.addAttribute("user", enemyUser);
+
+        return "arenaDetail";
     }
 
 
@@ -89,6 +118,7 @@ public class UserControler {
         return "user-form/userPolowanie";
     }
 
+
     @GetMapping("/editUser/{id}")
     public String getEditUserForm(Model model, @PathVariable(name ="id")Long id)throws Exception{
         User userToEdit = userService.getUserById(id);
@@ -101,6 +131,7 @@ public class UserControler {
 
         return "user-form/user-view";
     }
+
 
     @PostMapping("/editUser")
     public String postEditUserForm(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
@@ -134,6 +165,21 @@ public class UserControler {
         return "redirect:/userForm";
     }
 
+    @GetMapping("/wyzwijGracza/{id}")
+    public String wyzwijGracza(Model model, @PathVariable(name ="id")Long id)throws Exception{
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserEmail = authentication.getName();
+        User user = userService.getCurrentUser(currentUserEmail);
+        System.out.println("from: " + user.getNickName());
+
+        User userToChallange = userService.getUserById(id);
+        System.out.println("to: " + userToChallange.getNickName());
+
+        userService.challangeUser(userToChallange, user.getId());
+
+        return "home";
+    }
+
 
     @PostMapping("/updateStat")
     public String updateStat(@RequestParam(value = "statistic") String chosenStat) {
@@ -165,6 +211,31 @@ public class UserControler {
         }
 
         return "redirect:/home";
+    }
+
+    @GetMapping("/fight")
+    public ResponseEntity<String> fight(Model model) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserEmail = authentication.getName();
+
+        User user = userService.getCurrentUser(currentUserEmail);
+
+        User enemyUser = userService.getUserById(user.getChallange());
+
+        int fightResult = userService.fight(user, enemyUser);
+
+        model.addAttribute("user", enemyUser);
+
+        if (fightResult < 2) {
+            return new ResponseEntity<>(
+                    "You lost fight",
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(
+                "You won fight",
+                HttpStatus.OK);
+
     }
 
 

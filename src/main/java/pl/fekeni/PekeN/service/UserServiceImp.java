@@ -42,8 +42,9 @@ public class UserServiceImp implements UserService {
         user.setDexterity(5);
         user.setIntelligence(5);
         user.setHealth(5);
-        user.setHealthPoints(100);
         user.setCurrentHealth(100);
+
+        user.setHealthPoints(100);
         user.setArmor(20);
         user.setDMG(5);
         userRepository.save(user);
@@ -89,6 +90,32 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public int fight(User userMe, User userEnemy) throws Exception{
+        int fightResult = 0;
+
+        if(userMe.getDMG() > userEnemy.getDMG()){
+            fightResult++;
+        }
+        if(userMe.getArmor() > userEnemy.getArmor()){
+            fightResult++;
+        }
+        if(userMe.getCurrentHealth() > userEnemy.getCurrentHealth()){
+            fightResult++;
+        }
+
+        return fightResult;
+    }
+
+    @Override
+    public void challangeUser(User userToChallange, Long idFromUser) throws Exception{
+        User toUser = getUserById(userToChallange.getId());
+        toUser.setChallange(idFromUser);
+
+        mapUser(userToChallange, toUser);
+        userRepository.save(toUser);
+    }
+
+    @Override
     public void work(User fromUser, String workType) throws Exception {
         User toUser = getUserById(fromUser.getId());
 
@@ -103,6 +130,7 @@ public class UserServiceImp implements UserService {
         mapUser(fromUser, toUser);
         userRepository.save(toUser);
     }
+
 
     @Override
     public void attack(User fromUser, String monsterType) throws Exception {

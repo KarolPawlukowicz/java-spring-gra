@@ -49,6 +49,9 @@ public class User {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "challange")
+    private Long challange;
+
     @NotNull(message="Nick name is compulsory")
     @Length(min=5, message="Nick name should be at least 5 characters")
     @Column(name = "nick_name")
@@ -107,6 +110,14 @@ public class User {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "auth_user_role", joinColumns = @JoinColumn(name = "auth_user_id"), inverseJoinColumns = @JoinColumn(name = "auth_role_id"))
     private Set<Role> roles;
+
+    public void setChallange(Long challange) {
+        this.challange = challange;
+    }
+
+    public Long getChallange() {
+        return challange;
+    }
 
     public void setXp(int xp) {
         this.xp = xp;
