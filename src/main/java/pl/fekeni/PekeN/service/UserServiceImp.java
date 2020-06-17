@@ -88,6 +88,65 @@ public class UserServiceImp implements UserService {
         userRepository.save(toUser);
     }
 
+    @Override
+    public void work(User fromUser, String workType) throws Exception {
+        User toUser = getUserById(fromUser.getId());
+
+        int howMuch = 0;
+        if(workType.equals("arbeit1")){
+            howMuch = 100;
+        } else if(workType.equals("arbeit2")){
+            howMuch = 200;
+        }
+        toUser.increaseGold(howMuch);
+
+        mapUser(fromUser, toUser);
+        userRepository.save(toUser);
+    }
+
+    @Override
+    public void attack(User fromUser, String monsterType) throws Exception {
+        User toUser = getUserById(fromUser.getId());
+
+        System.out.println("attakiren ");
+
+        int increaseGold = 0, decreaseHP = 0, increaseExp = 0;
+        if(monsterType.equals("dzikiPies")){
+            System.out.println("attakiren dziki pies");
+            increaseGold = 100;
+            decreaseHP = 10;
+            increaseExp = 1;
+        } else if(monsterType.equals("alfaWilk")){
+            increaseGold = 200;
+            decreaseHP = 20;
+            increaseExp = 2;
+        }
+        toUser.increaseGold(increaseGold);
+        toUser.decreaseHP(decreaseHP);
+        toUser.increaseExp(increaseExp);
+
+        mapUser(fromUser, toUser);
+        userRepository.save(toUser);
+    }
+
+    @Override
+    public void updateHpAllUsers(){
+        Iterable<User> userList = this.getAllUsers();
+
+        for(User u: userList){
+            if(u.getCurrentHealth() <= u.getHealthPoints()) {
+                u.increaseHP(10);
+                userRepository.save(u);
+            }
+
+            if(u.getCurrentHealth() > u.getHealthPoints()){
+                u.setCurrentHealth(u.getHealthPoints());
+                userRepository.save(u);
+            }
+        }
+
+    }
+
     /**
      * Map everythin but the password.
      * @param from

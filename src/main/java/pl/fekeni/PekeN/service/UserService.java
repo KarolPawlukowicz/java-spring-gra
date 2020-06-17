@@ -17,4 +17,10 @@ public interface UserService {
     public User getUserById(Long id) throws Exception;
 
     public User updateUser(User user) throws Exception;
+
+    public void work(User fromUser, String workType) throws Exception;
+
+    public void attack(User fromUser, String monsterType) throws Exception;
+
+    public void updateHpAllUsers();
 }

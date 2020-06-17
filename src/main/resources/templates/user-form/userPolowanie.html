@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Store</title>
+</head>
+<body>
+
+<div>
+<label>Dziki pies:</label>
+<form action="#" method="post" th:action="@{/attack}">
+    <input type="hidden" name="whatToAttack" th:value="dzikiPies" />
+    <button type="submit" th:disabled="${user.currentHealth<=10}"> Attack </button>
+</form>
+</div>
+
+<div>
+    <label>Alfa wilk:</label>
+    <form action="#" method="post" th:action="@{/attack}">
+        <input type="hidden" name="whatToAttack" th:value="alfaWilk" />
+        <button type="submit" th:disabled="${user.currentHealth<=20}"> Attack </button>
+    </form>
+</div>
+
+</body>
+</html>

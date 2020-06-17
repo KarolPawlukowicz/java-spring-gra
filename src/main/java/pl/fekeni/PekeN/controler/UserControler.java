@@ -34,6 +34,7 @@ public class UserControler {
         return "index";
     }
 
+
     @GetMapping("/ranking")
     public String ranking(Model model){
         model.addAttribute("userForm", new User());
@@ -74,6 +75,18 @@ public class UserControler {
         model.addAttribute("user", user);
 
         return "user-form/userTrening";
+    }
+
+    @GetMapping("/polowanie")
+    public String polowanie(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserEmail = authentication.getName();
+
+        User user = userService.getCurrentUser(currentUserEmail);
+
+        model.addAttribute("user", user);
+
+        return "user-form/userPolowanie";
     }
 
     @GetMapping("/editUser/{id}")
@@ -132,6 +145,37 @@ public class UserControler {
 
         try {
             userService.addStat(user, stat);
+        } catch (Exception e) {
+            System.out.println("siema");
+        }
+
+        return "redirect:/home";
+    }
+
+    @PostMapping("/work")
+    public String work(@RequestParam(value = "workType") String workType) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserEmail = authentication.getName();
+        User user = userService.getCurrentUser(currentUserEmail);
+
+        try {
+            userService.work(user, workType);
+        } catch (Exception e) {
+            System.out.println("siema");
+        }
+
+        return "redirect:/home";
+    }
+
+
+    @PostMapping("/attack")
+    public String attack(@RequestParam(value = "whatToAttack") String monsterType) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserEmail = authentication.getName();
+        User user = userService.getCurrentUser(currentUserEmail);
+
+        try {
+            userService.attack(user, monsterType);
         } catch (Exception e) {
             System.out.println("siema");
         }

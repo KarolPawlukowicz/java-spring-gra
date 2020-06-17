@@ -7,18 +7,28 @@
 </head>
 <body>
 
-<form action="#" th:action="@{/ranking}">
-    <input type="submit" value="Ranking"/>
-</form>
 
 <form action="#" th:action="@{/userInfo}">
     <input type="submit" value="Info o graczu"/>
 </form>
 
 <form action="#" th:action="@{/trening}">
-    <input type="submit" value="Trening"/>
+    <input type="submit" value="trening"/>
 </form>
 
+<form action="#" th:action="@{/polowanie}">
+    <input type="submit" value="polowanie"/>
+</form>
+
+
+<form action="#" method="post" th:action="@{/work}">
+    <input type="hidden" name="workType" th:value="arbeit2" />
+    <button type="submit" >work</button>
+</form>
+
+<form action="#" th:action="@{/ranking}">
+    <input type="submit" value="Ranking"/>
+</form>
 
 
 </body>

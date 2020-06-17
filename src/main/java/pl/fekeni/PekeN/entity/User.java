@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Formula;
 import org.hibernate.validator.constraints.Length;
 
 
@@ -85,6 +86,7 @@ public class User {
 
     @NotNull
     @Column(name = "health_points")
+    @Formula("100 + health * 20")
     private int healthPoints;
 
     @NotNull
@@ -94,10 +96,12 @@ public class User {
 
     @NotNull
     @Column(name = "armor")
+    @Formula("20 + dexterity * 2 + intelligence")
     private int armor;
 
     @NotNull
     @Column(name = "DMG")
+    @Formula("5 + strength * 2 + dexterity")
     private int DMG;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -274,6 +278,29 @@ public class User {
 
     public void decreaseGold(int howMuch){
         this.money-=howMuch;
+    }
+
+    public void increaseGold(int howMuch){
+        this.money+=howMuch;
+    }
+
+    public void increaseExp(int howMuch){
+        System.out.println("exp");
+
+        this.xp+=howMuch;
+        if(this.xp >= 10){
+            System.out.println("lvl up");
+            this.lvl++;
+            this.xp = this.xp%10;
+        }
+    }
+
+    public void decreaseHP(int howMuch){
+        this.currentHealth-=howMuch;
+    }
+
+    public void increaseHP(int howMuch){
+        this.currentHealth+=howMuch;
     }
 
 

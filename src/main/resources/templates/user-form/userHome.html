@@ -107,6 +107,23 @@
             <label class="col-lg-3 col-form-label form-control-label"><td th:text="${user.health}"></td></label>
         </div>
     </div>
+    <div class="form-group row">
+        <label class="col-lg-3 col-form-label form-control-label">DMG:</label>
+        <div class="col-lg-9">
+            <label class="col-lg-3 col-form-label form-control-label"><td th:text="${user.DMG}"></td></label>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-lg-3 col-form-label form-control-label">Armor:</label>
+        <div class="col-lg-9">
+            <label class="col-lg-3 col-form-label form-control-label"><td th:text="${user.armor}"></td></label>
+        </div>
+    </div>
+
+
+    <form action="#" th:action="@{/ranking}">
+        <input type="submit" value="Home"/>
+    </form>
 
 
 
