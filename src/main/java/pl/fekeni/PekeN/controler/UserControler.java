@@ -213,31 +213,6 @@ public class UserControler {
         return "redirect:/home";
     }
 
-    @GetMapping("/fight")
-    public ResponseEntity<String> fight(Model model) throws Exception {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserEmail = authentication.getName();
-
-        User user = userService.getCurrentUser(currentUserEmail);
-
-        User enemyUser = userService.getUserById(user.getChallange());
-
-        int fightResult = userService.fight(user, enemyUser);
-
-        model.addAttribute("user", enemyUser);
-
-        if (fightResult < 2) {
-            return new ResponseEntity<>(
-                    "You lost fight",
-                    HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(
-                "You won fight",
-                HttpStatus.OK);
-
-    }
-
 
     @PostMapping("/attack")
     public String attack(@RequestParam(value = "whatToAttack") String monsterType) {
@@ -252,6 +227,39 @@ public class UserControler {
         }
 
         return "redirect:/home";
+    }
+
+
+    @PostMapping("/fight")
+    public ResponseEntity<String> fight(Model model) throws Exception {
+   // public String fight(Model model) throws Exception {
+        System.out.println("walcze walki: ");
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserEmail = authentication.getName();
+
+        User user = userService.getCurrentUser(currentUserEmail);
+
+        User enemyUser = userService.getUserById(user.getChallange());
+
+        int fightResult = userService.fight(user, enemyUser);
+
+        model.addAttribute("user", enemyUser);
+
+        System.out.println("walcze controller wynik walki: " + fightResult);
+
+        if (fightResult < 2) {
+            return new ResponseEntity<>(
+                    "You lost fight",
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(
+                "You won fight",
+                HttpStatus.OK);
+
+    //    return "redirect:/home";
+
     }
 
 

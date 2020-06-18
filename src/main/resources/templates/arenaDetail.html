@@ -42,6 +42,11 @@
 
 
 <div class="container">
+
+    <form action="#" method="post" th:action="@{/fight}">
+        <input type="submit" value="Walcz"/>
+    </form>
+
     <form class="form" role="form" autocomplete="off" th:object="${user}" th:action="@{/arenaDetail}" method="get"
           xmlns:th="http://www.w3.org/1999/xhtml">
         <div class="form-group row">
@@ -109,10 +114,6 @@
             </div>
         </div>
 
-
-        <form action="#" th:action="@{/fight}">
-            <input type="submit" value="Walcz"/>
-        </form>
 
     </form>
 

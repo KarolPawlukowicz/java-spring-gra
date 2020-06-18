@@ -103,6 +103,17 @@ public class UserServiceImp implements UserService {
             fightResult++;
         }
 
+
+        Long newChallange = -1l;
+        userMe.setChallange(newChallange);
+
+        User toUser = getUserById(userMe.getId());
+
+        mapUser(userMe, toUser);
+        userRepository.save(toUser);
+
+        System.out.println("walcze service wynik walki: " + fightResult);
+
         return fightResult;
     }
 
