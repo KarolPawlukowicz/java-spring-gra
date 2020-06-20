@@ -89,7 +89,7 @@ public class User {
 
     @NotNull
     @Column(name = "health_points")
-    @Formula("100 + health * 20")
+  //  @Formula("100 + health * 20")
     private int healthPoints;
 
     @NotNull
@@ -99,17 +99,29 @@ public class User {
 
     @NotNull
     @Column(name = "armor")
-    @Formula("20 + dexterity * 2 + intelligence")
+   // @Formula("20 + dexterity * 2 + intelligence")
     private int armor;
 
     @NotNull
     @Column(name = "DMG")
-    @Formula("5 + strength * 2 + dexterity")
+ //   @Formula("5 + strength * 2 + dexterity")
     private int DMG;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "auth_user_role", joinColumns = @JoinColumn(name = "auth_user_id"), inverseJoinColumns = @JoinColumn(name = "auth_role_id"))
     private Set<Role> roles;
+
+   /* @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "auth_user_item", joinColumns = @JoinColumn(name = "auth_user_id"), inverseJoinColumns = @JoinColumn(name = "item_id"))
+    private Set<Item> items;
+
+    public Set<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(Set<Item> items) {
+        this.items = items;
+    }*/
 
     public void setChallange(Long challange) {
         this.challange = challange;

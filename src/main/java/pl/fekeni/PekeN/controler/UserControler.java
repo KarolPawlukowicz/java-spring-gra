@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.fekeni.PekeN.entity.User;
 import pl.fekeni.PekeN.repository.RoleRepository;
+import pl.fekeni.PekeN.service.ItemService;
 import pl.fekeni.PekeN.service.UserService;
 
 import org.springframework.ui.Model;
@@ -26,6 +27,9 @@ public class UserControler {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    ItemService itemService;
 
     @Autowired
     RoleRepository roleRepository;
@@ -57,7 +61,6 @@ public class UserControler {
         return "arena";
     }
 
-
     @GetMapping("/arenaDetail")
     public String arenaDetail(Model model) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -82,7 +85,7 @@ public class UserControler {
         return "user-form/user-view";
     }
 
-    @GetMapping("/userInfo")
+   /* @GetMapping("/userInfo")
     public String userInfo(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUserEmail = authentication.getName();
@@ -92,31 +95,9 @@ public class UserControler {
         model.addAttribute("user", user);
 
         return "user-form/userHome";
-    }
+    }*/
 
-    @GetMapping("/trening")
-    public String trening(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserEmail = authentication.getName();
 
-        User user = userService.getCurrentUser(currentUserEmail);
-
-        model.addAttribute("user", user);
-
-        return "user-form/userTrening";
-    }
-
-    @GetMapping("/polowanie")
-    public String polowanie(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserEmail = authentication.getName();
-
-        User user = userService.getCurrentUser(currentUserEmail);
-
-        model.addAttribute("user", user);
-
-        return "user-form/userPolowanie";
-    }
 
 
     @GetMapping("/editUser/{id}")
@@ -181,37 +162,7 @@ public class UserControler {
     }
 
 
-    @PostMapping("/updateStat")
-    public String updateStat(@RequestParam(value = "statistic") String chosenStat) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserEmail = authentication.getName();
-        User user = userService.getCurrentUser(currentUserEmail);
 
-        String stat = chosenStat;
-
-        try {
-            userService.addStat(user, stat);
-        } catch (Exception e) {
-            System.out.println("siema");
-        }
-
-        return "redirect:/home";
-    }
-
-    @PostMapping("/work")
-    public String work(@RequestParam(value = "workType") String workType) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserEmail = authentication.getName();
-        User user = userService.getCurrentUser(currentUserEmail);
-
-        try {
-            userService.work(user, workType);
-        } catch (Exception e) {
-            System.out.println("siema");
-        }
-
-        return "redirect:/home";
-    }
 
 
     @PostMapping("/attack")
@@ -260,6 +211,34 @@ public class UserControler {
 
     //    return "redirect:/home";
 
+    }
+
+
+
+    @GetMapping("/handlarz")
+    public String handlarz(Model model){
+
+        model.addAttribute("itemList", itemService.getAllItems());
+
+        return "handlarz";
+    }
+
+
+    @PostMapping("/updateStat")
+    public String updateStat(@RequestParam(value = "statistic") String chosenStat) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserEmail = authentication.getName();
+        User user = userService.getCurrentUser(currentUserEmail);
+
+        String stat = chosenStat;
+
+        try {
+            userService.addStat(user, stat);
+        } catch (Exception e) {
+            System.out.println("siema");
+        }
+
+        return "redirect:/home";
     }
 
 

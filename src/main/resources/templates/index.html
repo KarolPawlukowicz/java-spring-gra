@@ -1,20 +1,55 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="ISO-8859-1">
-    <title>Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FekeN</title>
+    <link rel="stylesheet" type="text/css" href="static/css/style.css"
+          th:href="@{/css/style.css}">
 </head>
+
 <body>
 
-    <form action="#" th:action="@{/login}">
-        <input type="submit" value="Login"/>
-    </form>
+<div id="wrapper">
 
-    <form action="#" th:action="@{/register}">
-        <input type="submit" value="Register"/>
-    </form>
+    <div id="header">
 
+        <div class="top_banner">
+            <h1>FekeN</h1>
+            <p>Potwory rzeczne</p>
+        </div>
+
+        <div class="navigation">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#" th:href="@{/ranking}">Ranking</a></li>
+                <li ><a href="#" th:href="@{/login}">Login</a></li>
+                <li sec:authorize="hasRole('SITE_USER')"><a href="#" th:href="@{/register}">Register</a></li>
+                <li th:if="${false}"><a href="#" >New Page 1</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div id="page_content">
+        <div class="common_content">
+            <h2>Feken</h2>
+            <hr>
+            <p>
+                Rzeznik krasnolud pragnie zostac wielkim wojownikiem.
+                Ciekawe kogo tam spotkal.
+            </p>
+        </div>
+
+        <div class="clear"></div>
+
+        <div id="footer">Copyright &copy; 2014. Design by <a href="http://www.htmltemplates.net/" target="_blank">HTML Templates</a><br>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
+
 </html>

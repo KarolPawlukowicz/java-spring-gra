@@ -27,15 +27,6 @@ public class AuthenticationController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public ModelAndView register() {
-        ModelAndView modelAndView = new ModelAndView();
-        User user = new User();
-        modelAndView.addObject("user", user);
-        modelAndView.setViewName("register"); // resources/template/register.html
-        return modelAndView;
-    }
-
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
@@ -50,9 +41,17 @@ public class AuthenticationController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public ModelAndView register() {
+        ModelAndView modelAndView = new ModelAndView();
+        User user = new User();
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("register"); // resources/template/register.html
+        return modelAndView;
+    }
+
     @RequestMapping(value="/register", method=RequestMethod.POST)
-  //@RequestMapping(value="/userForm", method=RequestMethod.POST)
-    public ModelAndView registerUser(@Valid @ModelAttribute("userForm")User user, BindingResult bindingResult, ModelMap modelMap) {
+    public ModelAndView registerUser(@Valid User user, BindingResult bindingResult, ModelMap modelMap) {
         ModelAndView modelAndView = new ModelAndView();
         // Check for the validations
         if(bindingResult.hasErrors()) {
@@ -69,7 +68,6 @@ public class AuthenticationController {
         }
         modelAndView.addObject("user", new User());
         modelAndView.setViewName("register");
-      //  modelAndView.setViewName("user-form/user-view");
         return modelAndView;
     }
 }

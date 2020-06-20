@@ -31,22 +31,27 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void saveUser(User user) {
+        Long challange = -1l;
+        int statistic = 5 , healthPoints = 100, money = 100, dmg = 5, armor = 20;
+
         user.setPassword(encoder.encode(user.getPassword()));
         user.setStatus("VERIFIED");
         Role userRole = roleRepository.findByRole("SITE_USER");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+
+        user.setArmor(armor);
+        user.setDMG(dmg);
         user.setLvl(1);
         user.setXp(0);
-        user.setMoney(100);
-        user.setStrength(5);
-        user.setDexterity(5);
-        user.setIntelligence(5);
-        user.setHealth(5);
-        user.setCurrentHealth(100);
+        user.setMoney(money);
+        user.setStrength(statistic);
+        user.setDexterity(statistic);
+        user.setIntelligence(statistic);
+        user.setHealth(statistic);
+        user.setHealthPoints(healthPoints);
+        user.setCurrentHealth(healthPoints);
+        user.setChallange(challange);
 
-        user.setHealthPoints(100);
-        user.setArmor(20);
-        user.setDMG(5);
         userRepository.save(user);
     }
 
@@ -81,12 +86,13 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void addStat(User fromUser, String stat) throws Exception{
-        User toUser = getUserById(fromUser.getId());
-        toUser.incrementStat(stat);
-        toUser.decreaseGold(5);
+      //  User toUser = getUserById(fromUser.getId());
+      //  toUser.incrementStat(stat);
+      //  toUser.decreaseGold(5);
 
-        mapUser(fromUser, toUser);
-        userRepository.save(toUser);
+      //  mapUser(fromUser, toUser);
+        fromUser.incrementStat(stat);
+        userRepository.save(fromUser);
     }
 
     @Override

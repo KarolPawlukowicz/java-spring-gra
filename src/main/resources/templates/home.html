@@ -1,39 +1,57 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
 <head>
-    <meta charset="ISO-8859-1">
-    <title>Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FekeN</title>
+    <link rel="stylesheet" type="text/css" href="static/css/style.css"
+          th:href="@{/css/style.css}">
 </head>
+
 <body>
 
+<div id="wrapper">
 
-<form action="#" th:action="@{/userInfo}">
-    <input type="submit" value="Info o graczu"/>
-</form>
+    <div id="header">
 
-<form action="#" th:action="@{/trening}">
-    <input type="submit" value="trening"/>
-</form>
+        <div class="top_banner">
+            <h1>FekeN</h1>
+            <p>Potwory rzeczne</p>
+        </div>
 
-<form action="#" th:action="@{/polowanie}">
-    <input type="submit" value="polowanie"/>
-</form>
+        <div class="navigation">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#" th:href="@{/userInfo}">User Info</a></li>
+                <li><a href="#" th:href="@{/training}">Training</a></li>
+                <li><a href="#" th:href="@{/hunt}">Hunt</a></li>
+                <li><a type="hidden" name="workType" th:value="arbeit2" th:href="@{/work}">Work</a></li>
+                <li><a href="#" th:href="@{/arena}">Arena</a></li>
+                <li><a href="#" th:href="@{/ranking}">Ranking</a></li>
+            </ul>
+        </div>
 
+    </div>
 
-<form action="#" method="post" th:action="@{/work}">
-    <input type="hidden" name="workType" th:value="arbeit2" />
-    <button type="submit" >work</button>
-</form>
+    <div id="page_content">
+        <div class="common_content">
+            <h2>Feken</h2>
+            <hr>
+            <p>
+                Rzeznik krasnolud pragnie zostac wielkim wojownikiem.
+                Ciekawe kogo tam spotkal.
+            </p>
+        </div>
 
-<form action="#" th:action="@{/arena}">
-    <input type="submit" value="Arena"/>
-</form>
+        <div class="clear"></div>
 
-<form action="#" th:action="@{/ranking}">
-    <input type="submit" value="Ranking"/>
-</form>
+        <div id="footer">Copyright &copy; 2014. Design by <a href="http://www.htmltemplates.net/" target="_blank">HTML Templates</a><br>
 
+        </div>
+
+    </div>
+
+</div>
 
 </body>
+
 </html>
