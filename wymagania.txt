@@ -8,16 +8,17 @@ Aspiruje na 4
 
 3. jest
 
-4. jeszcze nie
+4. jest
 
 5. mam 6 tabel
 
 6. tak
 
-7. jeszcze nie
+7. przypadki uzycia sa, dokumentacji jako takiej nie ma
 
 
 
+Dodatkowe:
 
 1. brak
 
