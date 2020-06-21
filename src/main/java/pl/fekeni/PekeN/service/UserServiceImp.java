@@ -3,11 +3,15 @@ package pl.fekeni.PekeN.service;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import pl.fekeni.PekeN.entity.Arena;
 import pl.fekeni.PekeN.entity.Role;
 import pl.fekeni.PekeN.entity.User;
 import pl.fekeni.PekeN.repository.RoleRepository;
@@ -26,6 +30,11 @@ public class UserServiceImp implements UserService {
     @Override
     public Iterable<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public Iterable<User> getAllByOrderByLvlDesc(){
+        return userRepository.findAllByOrderByLvlDesc();
     }
 
 
@@ -74,7 +83,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User getUserById(Long id) throws Exception {
-        return userRepository.findById(id).orElseThrow(() -> new Exception("El usuario para editar no existe."));
+        return userRepository.findById(id).orElseThrow(() -> new Exception("Uzytkownik nie istnieje"));
     }
 
     @Override
@@ -86,12 +95,8 @@ public class UserServiceImp implements UserService {
 
     @Override
     public void addStat(User fromUser, String stat) throws Exception{
-      //  User toUser = getUserById(fromUser.getId());
-      //  toUser.incrementStat(stat);
-      //  toUser.decreaseGold(5);
-
-      //  mapUser(fromUser, toUser);
         fromUser.incrementStat(stat);
+        fromUser.decreaseGold(5);
         userRepository.save(fromUser);
     }
 
@@ -108,8 +113,6 @@ public class UserServiceImp implements UserService {
         if(userMe.getCurrentHealth() > userEnemy.getCurrentHealth()){
             fightResult++;
         }
-
-
         Long newChallange = -1l;
         userMe.setChallange(newChallange);
 
@@ -123,41 +126,24 @@ public class UserServiceImp implements UserService {
         return fightResult;
     }
 
-    @Override
-    public void challangeUser(User userToChallange, Long idFromUser) throws Exception{
-        User toUser = getUserById(userToChallange.getId());
-        toUser.setChallange(idFromUser);
-
-        mapUser(userToChallange, toUser);
-        userRepository.save(toUser);
-    }
 
     @Override
     public void work(User fromUser, String workType) throws Exception {
-        User toUser = getUserById(fromUser.getId());
-
         int howMuch = 0;
-        if(workType.equals("arbeit1")){
+        if(workType.equals("kowal")){
             howMuch = 100;
-        } else if(workType.equals("arbeit2")){
+        } else if(workType.equals("stajenny")){
             howMuch = 200;
         }
-        toUser.increaseGold(howMuch);
-
-        mapUser(fromUser, toUser);
-        userRepository.save(toUser);
+        fromUser.increaseGold(howMuch);
+        userRepository.save(fromUser);
     }
 
 
     @Override
     public void attack(User fromUser, String monsterType) throws Exception {
-        User toUser = getUserById(fromUser.getId());
-
-        System.out.println("attakiren ");
-
         int increaseGold = 0, decreaseHP = 0, increaseExp = 0;
         if(monsterType.equals("dzikiPies")){
-            System.out.println("attakiren dziki pies");
             increaseGold = 100;
             decreaseHP = 10;
             increaseExp = 1;
@@ -166,12 +152,11 @@ public class UserServiceImp implements UserService {
             decreaseHP = 20;
             increaseExp = 2;
         }
-        toUser.increaseGold(increaseGold);
-        toUser.decreaseHP(decreaseHP);
-        toUser.increaseExp(increaseExp);
+        fromUser.increaseGold(increaseGold);
+        fromUser.decreaseHP(decreaseHP);
+        fromUser.increaseExp(increaseExp);
 
-        mapUser(fromUser, toUser);
-        userRepository.save(toUser);
+        userRepository.save(fromUser);
     }
 
     @Override
@@ -183,7 +168,6 @@ public class UserServiceImp implements UserService {
                 u.increaseHP(10);
                 userRepository.save(u);
             }
-
             if(u.getCurrentHealth() > u.getHealthPoints()){
                 u.setCurrentHealth(u.getHealthPoints());
                 userRepository.save(u);

@@ -40,29 +40,25 @@
             <hr>
 
             <div class="container">
-                <form class="form" role="form" autocomplete="off" th:action="@{/ranking}" method="get"
+                <form class="form" role="form" autocomplete="off" th:action="@{/arenaDetail}" method="get"
                       xmlns:th="http://www.w3.org/1999/xhtml">
 
                     <div class="table-responsive">
                         <table id="userList" class="table table-bordered table-hover table-striped">
                             <thead class="thead-light">
                             <tr>
-                                <th scope="col">Level</th>
-                                <th scope="col">Username</th>
-                                <th scope="col">Strength</th>
-                                <th scope="col">Dexterity</th>
-                                <th scope="col">Intelligence</th>
-                                <th scope="col">Health</th>
+                                <th scope="col">Id</th>
+                                <th scope="col">Fight User</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="user: ${userList}">
-                                <td th:text="${user.lvl}"></td>
-                                <td th:text="${user.nickName}"></td>
-                                <td th:text="${user.strength}"></td>
-                                <td th:text="${user.dexterity}"></td>
-                                <td th:text="${user.intelligence}"></td>
-                                <td th:text="${user.health}"></td>
+                            <tr th:each="arena: ${arenaList}">
+                                <td th:text="${arena.userIdTo}"></td>
+                                <td>
+                                    <form action="#" method="post" th:action="@{'/challangeUser/'+ ${user.id}}">
+                                        <button style="background-color:#d18ca9" type="submit" >Fight</button>
+                                    </form>
+                                </td>
                             </tr>
                             </tbody>
                         </table>

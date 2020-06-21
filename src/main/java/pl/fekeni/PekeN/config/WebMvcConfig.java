@@ -1,4 +1,4 @@
-package pl.fekeni.PekeN;
+package pl.fekeni.PekeN.config;
 
 
 import org.springframework.context.annotation.Bean;

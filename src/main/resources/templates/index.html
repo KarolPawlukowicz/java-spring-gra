@@ -21,10 +21,8 @@
         <div class="navigation">
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="#" th:href="@{/ranking}">Ranking</a></li>
-                <li ><a href="#" th:href="@{/login}">Login</a></li>
-                <li sec:authorize="hasRole('SITE_USER')"><a href="#" th:href="@{/register}">Register</a></li>
-                <li th:if="${false}"><a href="#" >New Page 1</a></li>
+                <li><a href="#" th:href="@{/login}">Login</a></li>
+                <li><a href="#" th:href="@{/register}">Register</a></li>
             </ul>
         </div>
 

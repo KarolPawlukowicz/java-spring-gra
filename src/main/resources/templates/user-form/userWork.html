@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FekeN</title>
@@ -20,10 +20,10 @@
 
         <div class="navigation">
             <ul>
+                <li><a href="#" th:href="@{/home}">Home</a></li>
                 <li><a href="#" th:href="@{/userInfo}">User Info</a></li>
                 <li><a href="#" th:href="@{/training}">Training</a></li>
                 <li><a href="#" th:href="@{/hunt}">Hunt</a></li>
-                <li><a href="#" th:href="@{/work}">Work</a></li>
                 <li><a href="#" th:href="@{/shop}">Shop</a></li>
                 <li><a href="#" th:href="@{/arena}">Arena</a></li>
                 <li><a href="#" th:href="@{/ranking}">Ranking</a></li>
@@ -34,12 +34,31 @@
 
     <div id="page_content">
         <div class="common_content">
-            <h2>Feken</h2>
+            <h2>Welcome: <td th:text="${user.nickName}"></td></h2>
+
+            <div class="col-lg-9">
+                <label class="col-lg-3 col-form-label form-control-label">Your money:  <td th:text="${user.money}"></td></label>
+            </div>
+
             <hr>
-            <p>
-                Rzeznik krasnolud pragnie zostac wielkim wojownikiem.
-                Ciekawe kogo tam spotkal.
-            </p>
+            <h2>Places to work: </h2>
+
+            <div class="mybutton">
+                <label>Kowal:</label>
+                <form action="#" method="post" th:action="@{/goToWork}">
+                    <input type="hidden" name="workType" th:value="kowal" />
+                    <button style="background-color:#d18ca9" type="submit" > Work </button>
+                </form>
+            </div>
+
+            <div class="mybutton">
+                <label>Stajenny:</label>
+                <form action="#" method="post" th:action="@{/goToWork}">
+                    <input type="hidden" name="workType" th:value="stajenny" />
+                    <button style="background-color:#d18ca9" type="submit" > Work </button>
+                </form>
+            </div>
+
         </div>
 
         <div class="clear"></div>
@@ -53,5 +72,4 @@
 </div>
 
 </body>
-
 </html>

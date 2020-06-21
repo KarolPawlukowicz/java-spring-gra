@@ -3,6 +3,7 @@ package pl.fekeni.PekeN.service;
 import pl.fekeni.PekeN.entity.User;
 
 public interface UserService {
+    public Iterable<User> getAllByOrderByLvlDesc();
 
     public void saveUser(User user);
 
@@ -23,8 +24,6 @@ public interface UserService {
     public void attack(User fromUser, String monsterType) throws Exception;
 
     public void updateHpAllUsers();
-
-    public void challangeUser(User userToChallange, Long idFromUser) throws Exception;
 
     public int fight(User userMe, User userEnemy) throws Exception;
 }

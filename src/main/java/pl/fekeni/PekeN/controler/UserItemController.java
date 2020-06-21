@@ -15,8 +15,8 @@ import pl.fekeni.PekeN.service.UserService;
 @Controller
 public class UserItemController {
 
-    @GetMapping("/kupPrzedmiot/{id}")
-    public String kupPrzedmiot(Model model, @PathVariable(name ="id")Long itemId)throws Exception{
+    @GetMapping("/buyItem/{id}")
+    public String buyItem(Model model, @PathVariable(name ="id")Long itemId)throws Exception{
       //  Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
       //  String currentUserEmail = authentication.getName();
       //  User user = userService.getCurrentUser(currentUserEmail);

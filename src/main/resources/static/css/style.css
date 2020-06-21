@@ -9,6 +9,11 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	background:none;
 }
 
+input{  text-decoration:none;
+          color: red;
+          background-color: #449900;
+       }
+
 ol, ul {
 	list-style-type:none;
 }

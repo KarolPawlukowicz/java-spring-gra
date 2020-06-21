@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.fekeni.PekeN.entity.User;
+import pl.fekeni.PekeN.service.ItemService;
 import pl.fekeni.PekeN.service.UserService;
 
 import javax.validation.Valid;
@@ -21,6 +22,10 @@ public class UserActionController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    ItemService itemService;
+
 
 
     @GetMapping("/userInfo")
@@ -41,29 +46,42 @@ public class UserActionController {
     public String hunt(Model model){
         User currentUser = userService.getCurrentUser(SecurityContextHolder.getContext().getAuthentication().getName());
         model.addAttribute("user", currentUser);
-        return "user-form/userPolowanie";
+        return "user-form/userHunt";
     }
 
     @GetMapping("/work")
     public String work(Model model){
         User currentUser = userService.getCurrentUser(SecurityContextHolder.getContext().getAuthentication().getName());
         model.addAttribute("user", currentUser);
-        return "user-form/userPolowanie";
+        return "user-form/userWork";
     }
 
-  /*  @PostMapping("/work")
-    public String work(@RequestParam(value = "workType") String workType) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserEmail = authentication.getName();
-        User user = userService.getCurrentUser(currentUserEmail);
 
-        try {
-            userService.work(user, workType);
-        } catch (Exception e) {
-            System.out.println("siema");
-        }
+    @GetMapping("/arena")
+    public String arena(Model model){
+        User currentUser = userService.getCurrentUser(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("user", currentUser);
+        model.addAttribute("userList", userService.getAllUsers());
+        return "arena/arena";
+    }
 
-        return "redirect:/home";
+    @GetMapping("/ranking")
+    public String ranking(Model model){
+        model.addAttribute("userList", userService.getAllByOrderByLvlDesc());
+        return "ranking";
+    }
+
+    @GetMapping("/shop")
+    public String shop(Model model){
+        model.addAttribute("itemList", itemService.getAllItems());
+        return "shop";
+    }
+
+ /*   @GetMapping("/home")
+    public String home(Model model){
+        User currentUser = userService.getCurrentUser(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("user", currentUser);
+        return "home";
     }*/
 
 

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FekeN</title>
+    <link rel="stylesheet" type="text/css" href="static/css/style.css"
+          th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <div id="header">
+
+        <div class="top_banner">
+            <h1>FekeN</h1>
+            <p>Potwory rzeczne</p>
+        </div>
+
+        <div class="navigation">
+            <ul>
+                <li><a href="#" th:href="@{/home}">Home</a></li>
+                <li><a href="#" th:href="@{/userInfo}">User Info</a></li>
+                <li><a href="#" th:href="@{/training}">Training</a></li>
+                <li><a href="#" th:href="@{/work}">Work</a></li>
+                <li><a href="#" th:href="@{/shop}">Shop</a></li>
+                <li><a href="#" th:href="@{/arena}">Arena</a></li>
+                <li><a href="#" th:href="@{/ranking}">Ranking</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div id="page_content">
+        <div class="common_content">
+            <h2>Welcome to the wood: <td th:text="${user.nickName}"></td></h2>
+
+
+            <div class="col-lg-9">
+                <label class="col-lg-3 col-form-label form-control-label">Level:  <td th:text="${user.lvl}"></td></label>
+            </div>
+
+            <div class="col-lg-9">
+                <label class="col-lg-3 col-form-label form-control-label">Exp:  <td th:text="${user.xp}"></td></label>
+            </div>
+
+            <div class="col-lg-9">
+                <label class="col-lg-3 col-form-label form-control-label">Current HP/HP:  <td th:text="${user.currentHealth}"></td> / <td th:text="${user.healthPoints}"></td></label>
+            </div>
+
+            <div class="col-lg-9">
+                <label class="col-lg-3 col-form-label form-control-label">Your money:  <td th:text="${user.money}"></td></label>
+            </div>
+
+            <hr>
+            <h2>Monsters: </h2>
+
+            <div class="mybutton">
+                <label>Dziki pies:</label>
+                <form action="#" method="post" th:action="@{/attack}">
+                    <input type="hidden" name="whatToAttack" th:value="dzikiPies" />
+                    <button style="background-color:#d18ca9" type="submit" th:disabled="${user.currentHealth<=10}"> Attack </button>
+                </form>
+            </div>
+
+            <div class="mybutton">
+                <label>Alfa wilk:</label>
+                <form action="#" method="post" th:action="@{/attack}">
+                    <input type="hidden" name="whatToAttack" th:value="alfaWilk" />
+                    <button style="background-color:#d18ca9" type="submit" th:disabled="${user.currentHealth<=20}"> Attack </button>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="clear"></div>
+
+        <div id="footer">Copyright &copy; 2014. Design by <a href="http://www.htmltemplates.net/" target="_blank">HTML Templates</a><br>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

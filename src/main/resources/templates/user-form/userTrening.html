@@ -1,79 +1,96 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
 <head>
-    <meta charset="ISO-8859-1">
-    <title>Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FekeN</title>
+    <link rel="stylesheet" type="text/css" href="static/css/style.css"
+          th:href="@{/css/style.css}">
 </head>
+
 <body>
 
-<br>
-    <div class="form-group row">
-        <label class="col-lg-3 col-form-label form-control-label">Nick name: </label>
+<div id="wrapper">
 
-        <div class="col-lg-9">
-            <label class="col-lg-3 col-form-label form-control-label"><td th:text="${user.nickName}"></td></label>
+    <div id="header">
+
+        <div class="top_banner">
+            <h1>FekeN</h1>
+            <p>Potwory rzeczne</p>
         </div>
-    </div>
 
-    <div class="form-group row">
-        <label class="col-lg-3 col-form-label form-control-label">Money: </label>
-        <div class="col-lg-9">
-            <label class="col-lg-3 col-form-label form-control-label"><td th:text="${user.money}"></td></label>
+        <div class="navigation">
+            <ul>
+                <li><a href="#" th:href="@{/home}">Home</a></li>
+                <li><a href="#" th:href="@{/userInfo}">User Info</a></li>
+                <li><a href="#" th:href="@{/hunt}">Hunt</a></li>
+                <li><a href="#" th:href="@{/work}">Work</a></li>
+                <li><a href="#" th:href="@{/shop}">Shop</a></li>
+                <li><a href="#" th:href="@{/arena}">Arena</a></li>
+                <li><a href="#" th:href="@{/ranking}">Ranking</a></li>
+            </ul>
         </div>
+
     </div>
 
-    <br>
+    <div id="page_content">
+        <div class="common_content">
+
+            <h2>Welcome to the gym: <td th:text="${user.nickName}"></td></h2>
+            <hr>
+            <p>
+                <h2>Every workout costs 5 gold</h2>
+
+                <div class="col-lg-9">
+                    <label class="col-lg-3 col-form-label form-control-label">Your money:  <td th:text="${user.money}"></td></label>
+                </div>
 
 
-    <label class="col-lg-3 col-form-label form-control-label">Strength: </label>
-    <div class="col-lg-9">
-        <label class="col-lg-3 col-form-label form-control-label"><td th:text="${user.strength}"></td></label>
-        <form action="#" method="post" th:action="@{/updateStat}">
-            <input type="hidden" name="statistic" th:value="strength" />
-            <button type="submit" th:disabled="${user.money<=5}">+</button>
-        </form>
+                <div class="col-lg-9">
+                    <label class="col-lg-3 col-form-label form-control-label">Strength:  <td th:text="${user.strength}"></td></label>
+                    <form action="#" method="post" th:action="@{/updateStat}">
+                        <input type="hidden" name="statistic" th:value="strength" />
+                        <button style="background-color:#d18ca9" type="submit" th:disabled="${user.money<=5}">+</button>
+                    </form>
+                </div>
+
+                <div class="col-lg-9">
+                    <label class="col-lg-3 col-form-label form-control-label">Dexterity:  <td th:text="${user.dexterity}"></td></label>
+                    <form action="#" method="post" th:action="@{/updateStat}">
+                        <input type="hidden" name="statistic" th:value="dexterity" />
+                        <button style="background-color:#d18ca9" type="submit" th:disabled="${user.money<=5}">+</button>
+                    </form>
+                </div>
+
+                <div class="col-lg-9">
+                    <label class="col-lg-3 col-form-label form-control-label">Intelligence:  <td th:text="${user.intelligence}"></td></label>
+                    <form action="#" method="post" th:action="@{/updateStat}">
+                        <input type="hidden" name="statistic" th:value="intelligence" />
+                        <button style="background-color:#d18ca9" type="submit" th:disabled="${user.money<=5}">+</button>
+                    </form>
+                </div>
+
+                <div class="col-lg-9">
+                    <label class="col-lg-3 col-form-label form-control-label">Health:  <td th:text="${user.health}"></td></label>
+                    <form action="#" method="post" th:action="@{/updateStat}">
+                        <input type="hidden" name="statistic" th:value="health" />
+                        <button style="background-color:#d18ca9" type="submit" th:disabled="${user.money<=5}">+</button>
+                    </form>
+                </div>
+
+
+            </p>
+        </div>
+
+        <div class="clear"></div>
+
+        <div id="footer">Copyright &copy; 2014. Design by <a href="http://www.htmltemplates.net/" target="_blank">HTML Templates</a><br>
+
+        </div>
+
     </div>
 
-    <label class="col-lg-3 col-form-label form-control-label">Dexterity: </label>
-    <div class="col-lg-9">
-        <label class="col-lg-3 col-form-label form-control-label"><td th:text="${user.dexterity}"></td></label>
-        <form action="#" method="post" th:action="@{/updateStat}">
-            <input type="hidden" name="statistic" th:value="dexterity" />
-            <button type="submit" th:disabled="${user.money<=5}">+</button>
-        </form>
-    </div>
-
-    <label class="col-lg-3 col-form-label form-control-label">Intelligence: </label>
-    <div class="col-lg-9">
-        <label class="col-lg-3 col-form-label form-control-label"><td th:text="${user.intelligence}"></td></label>
-        <form action="#" method="post" th:action="@{/updateStat}">
-            <input type="hidden" name="statistic" th:value="intelligence" />
-            <button type="submit" th:disabled="${user.money<=5}">+</button>
-        </form>
-    </div>
-
-    <label class="col-lg-3 col-form-label form-control-label">Health: </label>
-    <div class="col-lg-9">
-        <label class="col-lg-3 col-form-label form-control-label"><td th:text="${user.health}"></td></label>
-        <form action="#" method="post" th:action="@{/updateStat}">
-            <input type="hidden" name="statistic" th:value="health" />
-            <button type="submit" th:disabled="${user.money<=5}">+</button>
-        </form>
-    </div>
-
-
-    <label class="col-lg-3 col-form-label form-control-label">Wyzwanie: </label>
-    <div class="col-lg-9">
-
-        <form action="#" th:action="@{/arenaDetail}">
-            <input type="submit" th:disabled="${user.challange<0}" value="Zobacz wyzwanie"/>
-        </form>
-    </div>
-
-
-
-
+</div>
 
 </body>
+
 </html>

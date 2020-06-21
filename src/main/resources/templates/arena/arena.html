@@ -26,7 +26,6 @@
                 <li><a href="#" th:href="@{/hunt}">Hunt</a></li>
                 <li><a href="#" th:href="@{/work}">Work</a></li>
                 <li><a href="#" th:href="@{/shop}">Shop</a></li>
-                <li><a href="#" th:href="@{/arena}">Arena</a></li>
                 <li><a href="#" th:href="@{/ranking}">Ranking</a></li>
             </ul>
         </div>
@@ -36,11 +35,16 @@
     <div id="page_content">
         <div class="common_content">
 
-            <h2>Ranking</h2>
+            <h2>Arena</h2>
+            <hr>
+
+            <form action="#" th:action="@{/arenaDetail}">
+                <button style="background-color:#d18ca9" type="submit" >Your challanges</button>
+            </form>
             <hr>
 
             <div class="container">
-                <form class="form" role="form" autocomplete="off" th:action="@{/ranking}" method="get"
+                <form class="form" role="form" autocomplete="off" th:action="@{/arena}" method="get"
                       xmlns:th="http://www.w3.org/1999/xhtml">
 
                     <div class="table-responsive">
@@ -53,6 +57,10 @@
                                 <th scope="col">Dexterity</th>
                                 <th scope="col">Intelligence</th>
                                 <th scope="col">Health</th>
+                                <th scope="col">CurrentHealth</th>
+                                <th scope="col">Armor</th>
+                                <th scope="col">DMG</th>
+                                <th scope="col">Challange User</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -63,6 +71,14 @@
                                 <td th:text="${user.dexterity}"></td>
                                 <td th:text="${user.intelligence}"></td>
                                 <td th:text="${user.health}"></td>
+                                <td th:text="${user.currentHealth}"></td>
+                                <td th:text="${user.armor}"></td>
+                                <td th:text="${user.DMG}"></td>
+                                <td>
+                                    <form action="#" method="post" th:action="@{'/challangeUser/'+ ${user.id}}">
+                                        <button style="background-color:#d18ca9" type="submit" >Challange</button>
+                                    </form>
+                                </td>
                             </tr>
                             </tbody>
                         </table>

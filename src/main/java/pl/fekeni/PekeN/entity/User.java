@@ -111,7 +111,7 @@ public class User {
     @JoinTable(name = "auth_user_role", joinColumns = @JoinColumn(name = "auth_user_id"), inverseJoinColumns = @JoinColumn(name = "auth_role_id"))
     private Set<Role> roles;
 
-   /* @ManyToMany(cascade = CascadeType.ALL)
+  /*  @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "auth_user_item", joinColumns = @JoinColumn(name = "auth_user_id"), inverseJoinColumns = @JoinColumn(name = "item_id"))
     private Set<Item> items;
 

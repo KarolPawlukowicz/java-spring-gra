@@ -40,65 +40,6 @@ public class UserControler {
     }
 
 
-    @GetMapping("/ranking")
-    public String ranking(Model model){
-        model.addAttribute("userForm", new User());
-        model.addAttribute("userList", userService.getAllUsers());
-      //  model.addAttribute("listTab", "active");
-        return "ranking";
-    }
-
-    @GetMapping("/arena")
-    public String arena(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserEmail = authentication.getName();
-
-        User user = userService.getCurrentUser(currentUserEmail);
-
-        model.addAttribute("user", user);
-        model.addAttribute("userList", userService.getAllUsers());
-        //  model.addAttribute("listTab", "active");
-        return "arena";
-    }
-
-    @GetMapping("/arenaDetail")
-    public String arenaDetail(Model model) throws Exception {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserEmail = authentication.getName();
-
-        User user = userService.getCurrentUser(currentUserEmail);
-
-        User enemyUser = userService.getUserById(user.getChallange());
-
-        model.addAttribute("user", enemyUser);
-
-        return "arenaDetail";
-    }
-
-
-    @GetMapping("/userForm")
-    public String userForm(Model model){
-        model.addAttribute("userForm", new User());
-        model.addAttribute("userList", userService.getAllUsers());
-        model.addAttribute("roles", roleRepository.findAll());
-        model.addAttribute("listTab", "active");
-        return "user-form/user-view";
-    }
-
-   /* @GetMapping("/userInfo")
-    public String userInfo(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserEmail = authentication.getName();
-
-        User user = userService.getCurrentUser(currentUserEmail);
-
-        model.addAttribute("user", user);
-
-        return "user-form/userHome";
-    }*/
-
-
-
 
     @GetMapping("/editUser/{id}")
     public String getEditUserForm(Model model, @PathVariable(name ="id")Long id)throws Exception{
@@ -114,70 +55,29 @@ public class UserControler {
     }
 
 
-    @PostMapping("/editUser")
-    public String postEditUserForm(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
-        if(result.hasErrors()) {
-            model.addAttribute("userForm", user);
-            model.addAttribute("formTab","active");
-            model.addAttribute("editMode","true");
-        }else {
-            try {
-                userService.updateUser(user);
-                model.addAttribute("userForm", new User());
-                model.addAttribute("listTab","active");
-            } catch (Exception e) {
-                model.addAttribute("formErrorMessage",e.getMessage());
-                model.addAttribute("userForm", user);
-                model.addAttribute("formTab","active");
-                model.addAttribute("userList", userService.getAllUsers());
-                model.addAttribute("roles",roleRepository.findAll());
-                model.addAttribute("editMode","true");
-            }
-        }
-
-        model.addAttribute("userList", userService.getAllUsers());
-        model.addAttribute("roles",roleRepository.findAll());
-        return "user-form/user-view";
-
-    }
-
-    @GetMapping("/userForm/cancel")
-    public String cancelEditUser(ModelMap model) {
-        return "redirect:/userForm";
-    }
-
-    @GetMapping("/wyzwijGracza/{id}")
-    public String wyzwijGracza(Model model, @PathVariable(name ="id")Long id)throws Exception{
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserEmail = authentication.getName();
-        User user = userService.getCurrentUser(currentUserEmail);
-        System.out.println("from: " + user.getNickName());
-
-        User userToChallange = userService.getUserById(id);
-        System.out.println("to: " + userToChallange.getNickName());
-
-        userService.challangeUser(userToChallange, user.getId());
-
-        return "home";
-    }
-
-
-
-
 
     @PostMapping("/attack")
-    public String attack(@RequestParam(value = "whatToAttack") String monsterType) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserEmail = authentication.getName();
-        User user = userService.getCurrentUser(currentUserEmail);
-
+    public String attack(@RequestParam(value = "whatToAttack") String monsterType, Model model) {
+        User currentUser = userService.getCurrentUser(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("user", currentUser);
         try {
-            userService.attack(user, monsterType);
+            userService.attack(currentUser, monsterType);
         } catch (Exception e) {
             System.out.println("siema");
         }
+        return "user-form/userHunt";
+    }
 
-        return "redirect:/home";
+    @PostMapping("/goToWork")
+    public String goToWork(@RequestParam(value = "workType") String workType, Model model) {
+        User currentUser = userService.getCurrentUser(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("user", currentUser);
+        try {
+            userService.work(currentUser, workType);
+        } catch (Exception e) {
+            System.out.println("siema");
+        }
+        return "user-form/userWork";
     }
 
 
@@ -215,30 +115,20 @@ public class UserControler {
 
 
 
-    @GetMapping("/handlarz")
-    public String handlarz(Model model){
-
-        model.addAttribute("itemList", itemService.getAllItems());
-
-        return "handlarz";
-    }
-
-
     @PostMapping("/updateStat")
-    public String updateStat(@RequestParam(value = "statistic") String chosenStat) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserEmail = authentication.getName();
-        User user = userService.getCurrentUser(currentUserEmail);
+    public String updateStat(@RequestParam(value = "statistic") String chosenStat, Model model) {
+        User currentUser = userService.getCurrentUser(SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("user", currentUser);
 
         String stat = chosenStat;
 
         try {
-            userService.addStat(user, stat);
+            userService.addStat(currentUser, stat);
         } catch (Exception e) {
             System.out.println("siema");
         }
 
-        return "redirect:/home";
+        return "user-form/userTrening";
     }
 
 
