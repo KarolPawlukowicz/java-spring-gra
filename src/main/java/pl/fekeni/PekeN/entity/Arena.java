@@ -35,4 +35,12 @@ public class Arena {
     public void setUserIdFrom(Long userIdFrom) {
         this.userIdFrom = userIdFrom;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

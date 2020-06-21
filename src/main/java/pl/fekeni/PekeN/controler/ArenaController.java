@@ -29,6 +29,16 @@ public class ArenaController {
         return "arena/arena";
     }
 
+
+    @PostMapping("/declineFight/{id}")
+    public String declineFight(Model model, @PathVariable(name ="id")Long id)throws Exception{
+        User currentUser = userService.getCurrentUser(SecurityContextHolder.getContext().getAuthentication().getName());
+        arenaService.declineFight(id);
+        model.addAttribute("user", currentUser);
+        model.addAttribute("userList", userService.getAllUsers());
+        return "arena/arena";
+    }
+
     @GetMapping("/arenaDetail")
     public String arenaDetail(Model model) throws Exception {
         User currentUser = userService.getCurrentUser(SecurityContextHolder.getContext().getAuthentication().getName());

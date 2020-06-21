@@ -49,14 +49,20 @@
                             <tr>
                                 <th scope="col">Id</th>
                                 <th scope="col">Fight User</th>
+                                <th scope="col">Decline</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="arena: ${arenaList}">
                                 <td th:text="${arena.userIdTo}"></td>
                                 <td>
-                                    <form action="#" method="post" th:action="@{'/challangeUser/'+ ${user.id}}">
+                                    <form action="#" method="post" th:action="@{'/challangeUser/'+ ${arena.userIdTo}}">
                                         <button style="background-color:#d18ca9" type="submit" >Fight</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="#" method="post" th:action="@{'/declineFight/'+ ${arena.id}}">
+                                        <button style="background-color:#d18ca9" type="submit" >Decline</button>
                                     </form>
                                 </td>
                             </tr>

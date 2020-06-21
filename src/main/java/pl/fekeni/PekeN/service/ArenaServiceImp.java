@@ -27,6 +27,11 @@ public class ArenaServiceImp implements ArenaService {
     @Override
     public Iterable<Arena> getAllArenaseById(Long id){
         return arenaRespository.findByUserIdFrom(id);
+    }
+
+    @Override
+    public void declineFight(Long fightId) throws Exception{
+        arenaRespository.deleteById(fightId);
 
     }
 }

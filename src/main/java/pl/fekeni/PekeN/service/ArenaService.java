@@ -9,4 +9,6 @@ public interface ArenaService {
 
     public void challangeUser(Long idToUser, Long idFromUser) throws Exception;
 
+    public void declineFight(Long fightId) throws Exception;
+
 }
